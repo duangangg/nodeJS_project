@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body >
+    <!-- 背景 -->
+    <div class="stars"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-3 banner">
+                <h1>信息管理系统</h1>
+
+                <form action="/users/register" method="POST" class="form-horizontal">
+                    <div class="form-group rowdiv">
+                        <label class="control-label col-lg-4">用&nbsp;户&nbsp;名：</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="username" class="form-control" placeholder="请输入用户名">
+                        </div>
+                    </div>
+                    <div class="form-group rowdiv">
+                        <label class="control-label col-lg-4">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  码：</label>
+                        <div class="col-lg-8">
+                            <input type="password" name="password" class="form-control" placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary col-lg-5 btn-lg col-lg-offset-4">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src='/lib/jq22/prefixfree.min.js'></script>
+    <script src='/lib/jq22/stopExecutionOnTimeout.js'></script>
+    <script src="/js/register.js"></script>
+    
+</body>
+
+</html>
