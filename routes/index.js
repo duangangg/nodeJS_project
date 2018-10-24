@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var usersModel = require('../model/usersModel.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,7 +33,33 @@ router.get('/login.html',function(req,res){
 //用户管理
 router.get('/user-manager.html',function(req,res){
   if(req.cookies.username && parseInt(req.cookies.isAdmin)){
-    res.render('user-manager');
+    //查询数据库，取得页码和每页显示的条数
+    let page = req.query.page || 1;
+    let pageSize = req.query.pageSize || 5;
+    usersModel.getUserList({
+      page : page,
+      pageSize : pageSize
+    },function(err,data){
+      if(err){
+        res.render('werror',err);
+      }else{
+        res.render('user-manager',{
+          username:req.cookies.username,
+          nickname: req.cookies.nickname,
+          isAdmin : parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
+          userList : data.userList,
+          totalPage : data.totalPage,
+          page : data.page
+        });
+      }
+    });
+
+
+    // res.render('user-manager',{
+    //   username:req.cookies.username,
+    //   nickname: req.cookies.nickname,
+    //   isAdmin : parseInt(req.cookies.isAdmin) ? '(管理员)' : ''
+    // });
   }else{
     res.redirect('/login.html');
   }

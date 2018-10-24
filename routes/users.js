@@ -16,10 +16,38 @@ router.get('/', function (req, res, next) {
 router.post('/register', function (req, res) {
   console.log('获取传递过来的post请求的数据');
   console.log(req.body);
-  if (!/^\w{5,10}$/.test(req.body.username)) {
+  if (!/^\w{3,10}$/.test(req.body.username)) {
     res.render('werror', {
       code: -1,
-      msg: '用户名必须是5-10位字符'
+      msg: '用户名必须是3-10位字符'
+    });
+    return;
+  }
+  if (!/^[a-z0-9A-Z]{3,10}$/.test(req.body.password)) {
+    res.render('werror', {
+      code: -1,
+      msg: '密码必须是3-10位字母与数字'
+    });
+    return;
+  }
+  if (!/^[a-z0-9A-Z]{3,10}$/.test(req.body.repassword)) {
+    res.render('werror', {
+      code: -1,
+      msg: '确认密码必须是3-10位字母与数字'
+    });
+    return;
+  }
+  if (!/^1[3|4|5|7|8][0-9]{9}$/.test(req.body.phone)) {
+    res.render('werror', {
+      code: -1,
+      msg: '手机号码错误'
+    });
+    return;
+  }
+  if (req.body.password !== req.body.repassword) {
+    res.render('werror', {
+      code: -1,
+      msg: '两次密码不一致'
     });
     return;
   }
