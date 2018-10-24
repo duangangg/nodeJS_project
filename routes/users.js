@@ -57,6 +57,18 @@ router.post('/login',function(req,res){
     }else{
       //跳转首页
       console.log('登录用户信息是',data);
+
+      //写cookie
+      res.cookie('username',data.username,{
+        maxAge: 1000 *60*10,
+      });
+      res.cookie('nickname',data.nickname,{
+        maxAge: 1000 *60*10,
+      });
+      res.cookie('isAdmin',data.isAdmin,{
+        maxAge: 1000 *60*10,
+      });
+
       res.redirect('/');
     }
   });
