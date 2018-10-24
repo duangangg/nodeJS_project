@@ -20,7 +20,7 @@ router.post('/register', function (req, res) {
     res.render('werror', {
       code: -1,
       msg: '用户名必须是5-10位字符'
-    })
+    });
     return;
   }
 
@@ -72,6 +72,16 @@ router.post('/login',function(req,res){
       res.redirect('/');
     }
   });
+});
+
+//退出登录
+router.get('/logout',function(req,res){
+  res.clearCookie('username');
+  res.clearCookie('nickname');
+  res.clearCookie('isAdmin');
+
+  res.redirect('/login.html');
+  // location.replace('/login.html');
 });
 
 module.exports = router;
