@@ -121,6 +121,43 @@ const usersModel = {
             //     // }
             // });
         });
+    },
+
+    /**
+     * 登录方法
+     * @param {obj} data  登录信息 {username:'',password:''}
+     * @param {fn} cb 回调函数
+     */
+    login(data,cb){
+        MongoClient.connect(url,function (err,client) {
+            if(err){
+                cb({code: -101, msg: '数据库连接失败'});
+            }else{
+                const db = client.db('zhuce');
+                db.collection('users').find({
+                    username: data.username,
+                    password: data.password
+                }).toArray(function(err,data){
+                    if(err){
+                        console.log('查询数据库失败',err);
+                        cb({code: -101,msg: err});
+                        client.close();
+                    }else if(data.length <=0){
+                        console.log('用户不能登录');
+                        cb({code:-102, msg: '用户名或密码错误'});
+                    }else{
+                        console.log('可以登录');
+                        cb(null,{
+                            username: data[0].username,
+                            nickname: data[0].nickname,
+                            isAdmin: data[0].is_admin
+                        });
+                    }
+                    client.close();
+                });
+            }
+        });
     }
+
 }
 module.exports = usersModel;

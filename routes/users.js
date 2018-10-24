@@ -48,4 +48,18 @@ router.post('/register', function (req, res) {
   });
 
 });
+
+//登录处理
+router.post('/login',function(req,res){
+  usersModel.login(req.body,function(err,data){
+    if(err){
+      res.render('werror',err);
+    }else{
+      //跳转首页
+      console.log('登录用户信息是',data);
+      res.redirect('/');
+    }
+  });
+});
+
 module.exports = router;
