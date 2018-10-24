@@ -64,7 +64,14 @@ const usersModel = {
                     });
                 }
             ],function(err,results){
-                
+                //最终回调，都会运行
+                if(err){
+                    console.log('上面的三步操作可能出了问题');
+                    cb(err);
+                }else{
+                    cb(null);
+                }
+                client.close();
             });
 
             //--------------------以下是回调地狱的实现方式----------------------
