@@ -54,6 +54,8 @@ router.get('/user-manager.html',function(req,res){
       }
     });
 
+    
+
 
     // res.render('user-manager',{
     //   username:req.cookies.username,

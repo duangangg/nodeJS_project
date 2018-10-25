@@ -88,13 +88,13 @@ router.post('/login',function(req,res){
 
       //写cookie
       res.cookie('username',data.username,{
-        maxAge: 1000 *60*10,
+        maxAge: 1000 *60*1000,
       });
       res.cookie('nickname',data.nickname,{
-        maxAge: 1000 *60*10,
+        maxAge: 1000 *60*1000,
       });
       res.cookie('isAdmin',data.isAdmin,{
-        maxAge: 1000 *60*10,
+        maxAge: 1000 *60*1000,
       });
 
       res.redirect('/');

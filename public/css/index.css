@@ -5,8 +5,8 @@
 }
 
 .index .header {
-  height: 60px;
-  line-height: 60px;
+  /* height: 60px; */
+  line-height: 100px;
   border-bottom: 1px solid #000;
 }
 
@@ -16,8 +16,9 @@
 }
 
 .container .menu {
-  width: 260px;
+  width: 300px;
   height: 100%;
+  font-size: 30px;
 }
 
 .container .main {
@@ -28,23 +29,97 @@
 /* // ======== [头部样式] ======== */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  height: 100px;
 }
 
 .header .header_left {
-
+  font-size: 40px;
+  
 }
 
 .header .header_right {
   display: flex;
+  font-size: 20px;
+}
+
+.header .header_right button{
+  height: 40px;
+  outline: none;
+  margin: 30px 0 0 30px;
+  border: none;
 }
 
 /* // ======== [左侧菜单] ======== */
 .menu {
   border-right: 1px solid #000;
+
 }
 
+
 .menu .menu_item {
-  height: 50px;
-  line-height: 50px;
+  text-align: center;
+  height: 80px;
+  line-height: 80px;
+  background: #aaaaee;
+  border-bottom: 1px solid #000;
 }
+
+.main p{
+  font-size: 70px;
+  line-height: 100px;
+  text-align: center;
+  text-shadow: 3px -3px black;
+  color: red;
+}
+.main p:first-child{
+  margin-top: 150px;
+}
+
+.main input{
+  /* border: none; */
+  border: #000 solid 1px;
+  outline: none;
+  width: 150px;
+  text-indent: 5px;
+  height: 30px;
+  margin: 40px 20px 50px 80px;
+  
+}
+
+.main button{
+  outline: none;
+  width: 50px;
+  height: 30px;
+  
+}
+.main table{
+  margin-left: 50px;
+}
+.main th{
+  width: 150px;
+  height: 50px;
+  border: #000 solid 1px;
+}
+.main td{
+  width: 150px;
+  height: 50px;
+  border: #000 solid 1px;
+  text-align: center;
+}
+.main ul{
+  padding-left: 580px;
+}
+.main li{
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #c1bdbd; 
+  margin-top: 30px;
+  text-align: center;
+  line-height: 40px;
+}
+
+
+
+
