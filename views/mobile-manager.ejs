@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/user-mangaer.css">
+
+</head>
+<body>
+
+  <div class="index">
+
+    <%- include('./common/header.ejs', { nickname: nickname, isAdmin: isAdmin }) %>
+
+    <div class="container">
+
+      <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
+
+      <div class="main">
+       
+
+        <!-- 通过 传过来  totalPage 来渲染我们的 分页组件 -->
+
+
+      </div>
+
+      <!-- 修改弹出框 -->
+      
+    </div>
+  </div>
+
+</body>
+</html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/js/delete.js"></script>
+<script src="/js/user-manger.js"></script>
+

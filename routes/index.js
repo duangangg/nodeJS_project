@@ -70,7 +70,27 @@ router.get('/user-manager.html',function(req,res){
 //手机管理
 router.get('/mobile-manager.html',function(req,res){
   if(req.cookies.username && parseInt(req.cookies.isAdmin)){
-    res.render('mobile-manager');
+    // res.render('mobile-manager');
+    let page = req.query.page || 1;
+    let pageSize = req.query.pageSize || 5;
+    usersModel.getPhoneList({
+      page : page,
+      pageSize : pageSize
+    },function(err,data){
+      if(err){
+        res.render('werror',err);
+      }else{
+        res.render('mobile-manager',{
+          username:req.cookies.username,
+          nickname: req.cookies.nickname,
+          isAdmin : parseInt(req.cookies.isAdmin) ? '(管理员)' : ''
+          // userList : data.userList,
+          // totalPage : data.totalPage,
+          // page : data.page
+        });
+      }
+    });
+
   }else{
     res.redirect('/login.html');
   }

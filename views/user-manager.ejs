@@ -7,6 +7,8 @@
   <title>Document</title>
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/user-mangaer.css">
+
 </head>
 <body>
 
@@ -19,9 +21,12 @@
       <%- include('./common/menu.ejs', { isAdmin: isAdmin }) %>
 
       <div class="main">
-
-        <input type="text" placeholder="输入用户昵称">
-        <button>搜索</button>
+        <form action="/users/search" method="post">
+          <input type="text" placeholder="输入用户昵称" name="ser" id="searchinp">
+          <input type="submit" class="searchbtn" value="搜索">
+        <!-- <button class="searchbtn">搜索</button> -->
+        </form>
+        
 
         <table>
           <thead>
@@ -41,13 +46,13 @@
             <!-- 循环 userList 显示用户数据 -->
             <% for (var i = 0; i < userList.length; i++) { %>
               <tr>
-                <td><%= userList[i]._id %></td>
-                <td><%= userList[i].username %></td>
-                <td><%= userList[i].nickname %></td>
-                <td><%= userList[i].phone %></td>
-                <td><%= userList[i].sex || '-' %></td>
-                <td><%= userList[i].age || '-' %></td>
-                <td><%= parseInt(userList[i].is_admin) ? '是' : '否' %></td>
+                <td class="id"><%= userList[i]._id %></td>
+                <td class="username"><%= userList[i].username %></td>
+                <td class="nickname"><%= userList[i].nickname %></td>
+                <td class="iphone"><%= userList[i].phone %></td>
+                <td class="sex"><%= userList[i].sex || '-' %></td>
+                <td class="age"><%= userList[i].age || '-' %></td>
+                <td ><%= parseInt(userList[i].is_admin) ? '是' : '否' %></td>
                 <td>
                   <!--
                     1. 如果当前登录的管理员跟这条记录匹配。那么可以修改，
@@ -55,12 +60,12 @@
                    -->
 
                   <% if (userList[i].username === username) { %>
-                    <a href="#">修改</a>
+                    <a href="#" class="change">修改</a>
                   <% } else if (parseInt(userList[i].is_admin)) { %>
 
                   <% } else { %>
-                    <a href="#">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a href="#">删除</a>
+                    <a href="#" class="change">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="/users/delete" class="del " >删除</a>
                   <% } %>
 
                 </td>
@@ -82,8 +87,28 @@
         </ul>
 
       </div>
+
+      <!-- 修改弹出框 -->
+      <div class="upda">
+        <form action="/users/update" method="POST">
+          <p>请输入昵称：</p><input type="text" name="nickname" id="" class="up_input _u_name">
+          <p>请输入手机号：</p><input type="text" name="phone" id="" class="up_input _number">
+          <p>请输入性别：</p><input type="text" name="sex" id="" class="up_input _sex">
+          <p>请输入年龄：</p><input type="text" name="age" id="" class="up_input _age">
+          <input type="hidden" name="_id" id="isId">
+          <br>
+          <input type="submit" class="btn upset">
+          <input type="button" value="取消" class="btn cancel">
+        </form>
+      </div>
+
+
+
     </div>
   </div>
 
 </body>
 </html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/js/delete.js"></script>
+<script src="/js/user-manger.js"></script>

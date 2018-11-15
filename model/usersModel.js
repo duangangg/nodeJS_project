@@ -216,10 +216,153 @@ const usersModel = {
                 //     }
                 // });
             }
-        });
+        });       
+    },
 
-        
-    }
+    //删除用户
+    delete(data,cb){
+        console.log(data);
+        MongoClient.connect(url,function(err,client){
+            if(err){
+                cb({code:-101,msg:'连接数据库失败'});
+            }else{
+                
+                const db = client.db('zhuce');
+                console.log('hhhhhh,wo lainjie dao shujuk l;');
+                db.collection('users').deleteOne({_id:parseInt(data._id)});
+            }
+            client.close();
+        });
+    },
+
+    //修改用户
+    update(data,cb, successCb){     
+        MongoClient.connect(url,function(err,client){
+            if(err){
+                cb({code:-101,msg:'连接数据库失败'});
+                return;
+            }else{
+                var db = client.db('users');
+                // console.log('连接数据库成功');
+                var serdate = {
+                    nickname:data.nickname,
+                    phone:data.phone,
+                    sex: data.sex,
+                    age:data.age
+                };
+                console.log(data,"ljdfoiwqehf");
+                console.log(data.nickname);
+                console.log(data._id);
+                // console.log(db.collection('users').find({_id:data._id*1}));
+                // var idd = data._id;
+                db.collection('users').updateOne({_id:data._id*1},
+                {$set:{
+                    nickname:"aaa",
+                    // phone:serdate.phone,
+                    // sex: serdate.sex,
+                    // age:serdate.age
+                }
+                },
+                function (err) {
+                    if(err){
+                        cb({code:-102,msg:'更新失败'});
+                    }else {
+                        successCb();
+                        // console.log(serdate);
+                    }
+                });
+                
+            }
+            client.close();
+        })
+    },
+    
+    //查询用户
+    search(data,cb){
+        MongoClient.connect(url,function(err,client){
+
+            if(err){
+                cb({code:-101,msg:'连接数据库失败'});
+                return;
+            }else{
+                var db = client.db('users');
+                console.log('连接数据库成功');
+                console.log(data.ser);
+                // console.log('当前的id是',data.id);
+                db.collection('users').find({'nickname':data.ser}).toArray(function(err,data){
+                    if(err){
+                        cb({code:-101,msg:'连接数据库失败'});
+                    }else{
+                        cb(null,{userList:data});
+                console.log(data);
+            }
+                });        
+            }
+            client.close();
+        })
+    },
+
+    //获取手机列表
+    /**
+     * 
+     * @param {obj} data 页码信息与每页显示条数
+     * @param {fn} cb  回调函数 
+     */
+    getPhoneList(data,cb){
+        MongoClient.connect(url,function(err,client){
+            if(err){
+                cb({code:-100,msg:'连接数据库失败'});
+            }else{
+                var db=client.db("zhuce");
+                var skipNum = data.page * data.pageSize - data.pageSize;
+                var limitNum = parseInt(data.pageSize);
+
+                async.parallel([
+                    function(callback){
+                        //查询所有记录
+                        db.collection('users').find().count(function(err,num){
+                            if(err){
+                                callback({code: -101 , msg: '查询数据库失败'});
+                            }else{
+                                callback(null,num);
+                            }
+                        });
+                    },
+                    function(callback){
+                        //查询分页数据
+                        db.collection('users').find().limit(limitNum).skip(skipNum).toArray(function(err,data){
+                                if(err){
+                                    callback({code: -101 , msg: '查询数据库失败'});
+                                }else{
+                                    callback(null,data);
+                                }
+                            });
+                    }
+                ],function(err,results){
+                    if(err){
+                        cb(err);
+                    }else{
+                        cb(null,{
+                            totalPage: Math.ceil(results[0]/data.pageSize),
+                            userList:results[1],
+                            page: data.page,
+                        });
+                    }
+
+                    client.close();
+                });
+
+                // db.collection('users').find().limit(data.pageSize).skip(skipNum).toArray(function(err,data){
+                //     if(err){
+                //         cb({code: -101 , msg: '查询数据库失败'});
+                //     }else{
+                //         cb(null,{});
+                //     }
+                // });
+            }
+        });       
+    },
+
 
 }
 module.exports = usersModel;

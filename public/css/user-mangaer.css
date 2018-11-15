@@ -1,0 +1,29 @@
+.container{
+    position: relative;
+}
+.upda{
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    border: 1px solid salmon;
+    left: 700px;
+    top: 100px;
+    background: gray;
+    font-size: 20px;
+    line-height: 30px;
+    display: none;
+    padding: 20px 30px;
+}
+.upda .up_input{
+    width: 300px;
+    height: 30px;
+}
+.upda p{
+    margin-top: 20px;
+}
+.upda .btn{
+    margin: 40px 10px 0 60px;
+    width: 50px;
+    height: 40px;
+    display: inline-block;
+}

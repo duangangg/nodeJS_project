@@ -100,7 +100,57 @@ router.post('/login',function(req,res){
       res.redirect('/');
     }
   });
+}); 
+
+//删除用户操作
+router.get('/delete',function(req,res){
+  usersModel.delete(req.query,function(err,data){
+    if(err){
+      res.render('werror',err);
+    }
+    console.log(req.query);
+  })
+  res.send({code:0});
 });
+
+  //修改处理
+router.post('/update',function(req,res){
+  // console.log(req.body);
+  // console.log(9999);
+    usersModel.update(req.body,function(err){
+          res.render('werror',err);
+    },function(){
+      res.redirect('/user-manager.html')
+    });
+    // usersModel.updata(req.body,function(err){
+    //   if(err){
+    //     res.render('werror',err);
+    //   }else{
+    //     res.redirect('/user-manager.html');
+    //   }
+    // })
+});
+
+  // 查询操作
+  router.post('/search',function(req,res){
+    usersModel.search(req.body,function(err,data){
+
+      // console.log(req.body.ser,"------------------------------------------------------");
+      if(err){
+        res.render('werror',err);
+        // console.log(req.body,"------------------------------------------------------");
+        // console.log("------------------------------------------------------");
+      }else{
+        res.render('user-manager',{
+          username:req.cookies.username,
+          nickname:req.cookies.nickname,
+          isAdmin : parseInt(req.cookies.isAdmin) ? '(管理员)' : '',
+          userList : data.userList,
+          totalPage : data.totalPage
+        });
+      }
+    });
+  });
 
 //退出登录
 router.get('/logout',function(req,res){
@@ -116,5 +166,7 @@ router.get('/logout',function(req,res){
   res.send('<script>location.replace("/")</script>');
   // location.replace('/login.html');
 });
+
+
 
 module.exports = router;
